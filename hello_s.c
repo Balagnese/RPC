@@ -1,13 +1,13 @@
 
 
-/* this ALWAYS GENERATED file contains the RPC client stubs */
+/* this ALWAYS GENERATED file contains the RPC server stubs */
 
 
- /* File created by MIDL compiler version 8.00.0603 */
-/* at Mon Apr 11 19:53:59 2022
+ /* File created by MIDL compiler version 8.01.0622 */
+/* at Tue Jan 19 06:14:07 2038
  */
 /* Compiler settings for hello.idl:
-    Oicf, W1, Zp8, env=Win32 (32b run), target_arch=X86 8.00.0603 
+    Oicf, W1, Zp8, env=Win32 (32b run), target_arch=X86 8.01.0622 
     protocol : dce , ms_ext, c_ext, robust
     error checks: allocation ref bounds_check enum stub_data 
     VC __declspec() decoration level: 
@@ -32,7 +32,6 @@
 #pragma optimize("", off ) 
 
 #include <string.h>
-
 #include "hello.h"
 
 #define TYPE_FORMAT_STRING_SIZE   29                                
@@ -63,151 +62,33 @@ typedef struct _hello_MIDL_EXPR_FORMAT_STRING
 static const RPC_SYNTAX_IDENTIFIER  _RpcTransferSyntax = 
 {{0x8A885D04,0x1CEB,0x11C9,{0x9F,0xE8,0x08,0x00,0x2B,0x10,0x48,0x60}},{2,0}};
 
-
 extern const hello_MIDL_TYPE_FORMAT_STRING hello__MIDL_TypeFormatString;
 extern const hello_MIDL_PROC_FORMAT_STRING hello__MIDL_ProcFormatString;
 extern const hello_MIDL_EXPR_FORMAT_STRING hello__MIDL_ExprFormatString;
 
-#define GENERIC_BINDING_TABLE_SIZE   0            
-
-
 /* Standard interface: hello, ver. 1.0,
    GUID={0xa791829b,0xa91a,0x43cf,{0xbf,0xd7,0xfe,0xee,0xbe,0x51,0x50,0xad}} */
 
-handle_t hello_IfHandle;
 
+extern const MIDL_SERVER_INFO hello_ServerInfo;
 
-static const RPC_CLIENT_INTERFACE hello___RpcClientInterface =
+extern const RPC_DISPATCH_TABLE hello_v1_0_DispatchTable;
+
+static const RPC_SERVER_INTERFACE hello___RpcServerInterface =
     {
-    sizeof(RPC_CLIENT_INTERFACE),
+    sizeof(RPC_SERVER_INTERFACE),
     {{0xa791829b,0xa91a,0x43cf,{0xbf,0xd7,0xfe,0xee,0xbe,0x51,0x50,0xad}},{1,0}},
     {{0x8A885D04,0x1CEB,0x11C9,{0x9F,0xE8,0x08,0x00,0x2B,0x10,0x48,0x60}},{2,0}},
+    (RPC_DISPATCH_TABLE*)&hello_v1_0_DispatchTable,
     0,
     0,
     0,
-    0,
-    0,
-    0x00000000
+    &hello_ServerInfo,
+    0x04000000
     };
-RPC_IF_HANDLE hello_v1_0_c_ifspec = (RPC_IF_HANDLE)& hello___RpcClientInterface;
+RPC_IF_HANDLE hello_v1_0_s_ifspec = (RPC_IF_HANDLE)& hello___RpcServerInterface;
 
 extern const MIDL_STUB_DESC hello_StubDesc;
-
-static RPC_BINDING_HANDLE hello__MIDL_AutoBindHandle;
-
-
-void HelloProc( 
-    /* [string][in] */ unsigned char *pszString)
-{
-
-    NdrClientCall2(
-                  ( PMIDL_STUB_DESC  )&hello_StubDesc,
-                  (PFORMAT_STRING) &hello__MIDL_ProcFormatString.Format[0],
-                  ( unsigned char * )&pszString);
-    
-}
-
-
-void Shutdown( void)
-{
-
-    NdrClientCall2(
-                  ( PMIDL_STUB_DESC  )&hello_StubDesc,
-                  (PFORMAT_STRING) &hello__MIDL_ProcFormatString.Format[30],
-                  ( unsigned char * )0);
-    
-}
-
-
-int Login( 
-    /* [string][in] */ unsigned char *userName)
-{
-
-    CLIENT_CALL_RETURN _RetVal;
-
-    _RetVal = NdrClientCall2(
-                  ( PMIDL_STUB_DESC  )&hello_StubDesc,
-                  (PFORMAT_STRING) &hello__MIDL_ProcFormatString.Format[54],
-                  ( unsigned char * )&userName);
-    return ( int  )_RetVal.Simple;
-    
-}
-
-
-void Logout( 
-    int id)
-{
-
-    NdrClientCall2(
-                  ( PMIDL_STUB_DESC  )&hello_StubDesc,
-                  (PFORMAT_STRING) &hello__MIDL_ProcFormatString.Format[90],
-                  ( unsigned char * )&id);
-    
-}
-
-
-int GetUsersList( 
-    /* [out] */ unsigned char usersList[ 100 ][ 50 ])
-{
-
-    CLIENT_CALL_RETURN _RetVal;
-
-    _RetVal = NdrClientCall2(
-                  ( PMIDL_STUB_DESC  )&hello_StubDesc,
-                  (PFORMAT_STRING) &hello__MIDL_ProcFormatString.Format[120],
-                  ( unsigned char * )&usersList);
-    return ( int  )_RetVal.Simple;
-    
-}
-
-
-int SendMessage( 
-    int id,
-    /* [string][in] */ unsigned char *message,
-    /* [string][in] */ unsigned char *receiver)
-{
-
-    CLIENT_CALL_RETURN _RetVal;
-
-    _RetVal = NdrClientCall2(
-                  ( PMIDL_STUB_DESC  )&hello_StubDesc,
-                  (PFORMAT_STRING) &hello__MIDL_ProcFormatString.Format[156],
-                  ( unsigned char * )&id);
-    return ( int  )_RetVal.Simple;
-    
-}
-
-
-int GetMessageStatus( 
-    int id,
-    int messageId)
-{
-
-    CLIENT_CALL_RETURN _RetVal;
-
-    _RetVal = NdrClientCall2(
-                  ( PMIDL_STUB_DESC  )&hello_StubDesc,
-                  (PFORMAT_STRING) &hello__MIDL_ProcFormatString.Format[204],
-                  ( unsigned char * )&id);
-    return ( int  )_RetVal.Simple;
-    
-}
-
-
-int ReceiveMessage( 
-    /* [out] */ unsigned char usersList[ 100 ],
-    /* [out] */ unsigned char sender[ 100 ])
-{
-
-    CLIENT_CALL_RETURN _RetVal;
-
-    _RetVal = NdrClientCall2(
-                  ( PMIDL_STUB_DESC  )&hello_StubDesc,
-                  (PFORMAT_STRING) &hello__MIDL_ProcFormatString.Format[246],
-                  ( unsigned char * )&usersList);
-    return ( int  )_RetVal.Simple;
-    
-}
 
 
 #if !defined(__RPC_WIN32__)
@@ -351,7 +232,7 @@ static const hello_MIDL_PROC_FORMAT_STRING hello__MIDL_ProcFormatString =
 /* 154 */	0x8,		/* FC_LONG */
 			0x0,		/* 0 */
 
-	/* Procedure SendMessage */
+	/* Procedure SendMyMessage */
 
 /* 156 */	0x32,		/* FC_BIND_PRIMITIVE */
 			0x48,		/* Old Flags:  */
@@ -432,7 +313,7 @@ static const hello_MIDL_PROC_FORMAT_STRING hello__MIDL_ProcFormatString =
 /* 244 */	0x8,		/* FC_LONG */
 			0x0,		/* 0 */
 
-	/* Procedure ReceiveMessage */
+	/* Procedure ReceiveMyMessage */
 
 /* 246 */	0x32,		/* FC_BIND_PRIMITIVE */
 			0x48,		/* Old Flags:  */
@@ -523,10 +404,10 @@ static const unsigned short hello_FormatStringOffsetTable[] =
 
 static const MIDL_STUB_DESC hello_StubDesc = 
     {
-    (void *)& hello___RpcClientInterface,
+    (void *)& hello___RpcServerInterface,
     MIDL_user_allocate,
     MIDL_user_free,
-    &hello_IfHandle,
+    0,
     0,
     0,
     0,
@@ -535,7 +416,7 @@ static const MIDL_STUB_DESC hello_StubDesc =
     1, /* -error bounds_check flag */
     0x50002, /* Ndr library version */
     0,
-    0x800025b, /* MIDL Version 8.0.603 */
+    0x801026e, /* MIDL Version 8.1.622 */
     0,
     0,
     0,  /* notify & notify_flag routine table */
@@ -544,7 +425,47 @@ static const MIDL_STUB_DESC hello_StubDesc =
     0,   /* proxy/server info */
     0
     };
-#pragma optimize("", on )
+
+static const RPC_DISPATCH_FUNCTION hello_table[] =
+    {
+    NdrServerCall2,
+    NdrServerCall2,
+    NdrServerCall2,
+    NdrServerCall2,
+    NdrServerCall2,
+    NdrServerCall2,
+    NdrServerCall2,
+    NdrServerCall2,
+    0
+    };
+static const RPC_DISPATCH_TABLE hello_v1_0_DispatchTable = 
+    {
+    8,
+    (RPC_DISPATCH_FUNCTION*)hello_table
+    };
+
+static const SERVER_ROUTINE hello_ServerRoutineTable[] = 
+    {
+    (SERVER_ROUTINE)HelloProc,
+    (SERVER_ROUTINE)Shutdown,
+    (SERVER_ROUTINE)Login,
+    (SERVER_ROUTINE)Logout,
+    (SERVER_ROUTINE)GetUsersList,
+    (SERVER_ROUTINE)SendMyMessage,
+    (SERVER_ROUTINE)GetMessageStatus,
+    (SERVER_ROUTINE)ReceiveMyMessage
+    };
+
+static const MIDL_SERVER_INFO hello_ServerInfo = 
+    {
+    &hello_StubDesc,
+    hello_ServerRoutineTable,
+    hello__MIDL_ProcFormatString.Format,
+    hello_FormatStringOffsetTable,
+    0,
+    0,
+    0,
+    0};
 #if _MSC_VER >= 1200
 #pragma warning(pop)
 #endif

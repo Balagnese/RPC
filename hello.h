@@ -3,11 +3,11 @@
 /* this ALWAYS GENERATED file contains the definitions for the interfaces */
 
 
- /* File created by MIDL compiler version 8.00.0603 */
-/* at Mon Apr 11 19:53:59 2022
+ /* File created by MIDL compiler version 8.01.0622 */
+/* at Tue Jan 19 06:14:07 2038
  */
 /* Compiler settings for hello.idl:
-    Oicf, W1, Zp8, env=Win32 (32b run), target_arch=X86 8.00.0603 
+    Oicf, W1, Zp8, env=Win32 (32b run), target_arch=X86 8.01.0622 
     protocol : dce , ms_ext, c_ext, robust
     error checks: allocation ref bounds_check enum stub_data 
     VC __declspec() decoration level: 
@@ -29,7 +29,7 @@
 
 #ifndef __RPCNDR_H_VERSION__
 #error this stub requires an updated version of <rpcndr.h>
-#endif // __RPCNDR_H_VERSION__
+#endif /* __RPCNDR_H_VERSION__ */
 
 
 #ifndef __hello_h__
@@ -66,7 +66,7 @@ void Logout(
 int GetUsersList( 
     /* [out] */ unsigned char usersList[ 100 ][ 50 ]);
 
-int SendMessage( 
+int SendMyMessage( 
     int id,
     /* [string][in] */ unsigned char *message,
     /* [string][in] */ unsigned char *receiver);
@@ -75,7 +75,7 @@ int GetMessageStatus(
     int id,
     int messageId);
 
-int ReceiveMessage( 
+int ReceiveMyMessage( 
     /* [out] */ unsigned char usersList[ 100 ],
     /* [out] */ unsigned char sender[ 100 ]);
 

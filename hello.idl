@@ -13,9 +13,9 @@ interface hello
 	int Login([in, string] unsigned char * userName);
 	void Logout(int id);
 	int GetUsersList([out] char usersList[100][50]);
-	int SendMessage(int id, [in, string] unsigned char * message, [in, string] unsigned char * receiver);
+	int SendMyMessage(int id, [in, string] unsigned char * message, [in, string] unsigned char * receiver);
 
 	int GetMessageStatus(int id, int messageId);
-	int ReceiveMessage([out] char usersList[100], [out] char sender[100]);
+	int ReceiveMyMessage([out] char usersList[100], [out] char sender[100]);
 
 }

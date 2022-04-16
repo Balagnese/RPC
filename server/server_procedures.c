@@ -1,10 +1,9 @@
 #undef UNICODE
 
-#include <stdio.h>  
-#include "hello.h"
+#include <stdio.h>
+#include "../com/chat_rpc.h"
 
-
-void HelloProc(unsigned char* pszString)
+void HelloProc(unsigned char *pszString)
 {
 	printf("%s\n", pszString);
 }
@@ -28,13 +27,13 @@ void Shutdown(void)
 		exit(status);*/
 }
 
-int Login(unsigned char* userName)
+int Login(unsigned char *userName)
 {
 	return 0;
 }
 
-void Logout(int id) {
-
+void Logout(int id)
+{
 }
 
 int GetUsersList(unsigned char usersList[100][50])
@@ -42,12 +41,13 @@ int GetUsersList(unsigned char usersList[100][50])
 	return 0;
 }
 
-int SendMyMessage(int id, unsigned char* message, unsigned char* receiver)
+int SendMyMessage(int id, unsigned char *message, unsigned char *receiver)
 {
 	return 0;
 }
 
-int GetMessageStatus(int id, int messageId) {
+int GetMessageStatus(int id, int messageId)
+{
 	return 0;
 }
 

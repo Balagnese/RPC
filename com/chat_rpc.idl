@@ -5,11 +5,8 @@
 	version(1.0)
 ]
 
-interface hello
+interface chat
 {
-	void HelloProc([in, string] unsigned char * pszString);
-	void Shutdown(void);
-
 	int Login([in, string] unsigned char * userName);
 	void Logout(int id);
 	int GetUsersList([out] char usersList[100][50]);
@@ -17,5 +14,4 @@ interface hello
 
 	int GetMessageStatus(int id, int messageId);
 	int ReceiveMyMessage([out] char usersList[100], [out] char sender[100]);
-
 }

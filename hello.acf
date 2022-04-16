@@ -1,9 +1,0 @@
-#undef UNICODE
-
-[
-implicit_handle(handle_t hello_IfHandle)
-] interface hello
-
-{
-
-}

@@ -3,3 +3,5 @@
 
 com/*.h
 com/*.c
+
+open_cmd.bat

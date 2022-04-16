@@ -11,5 +11,10 @@ run:
 	start cmd /k client.exe
 
 clean:
-	del client.exe
-	del server.exe
+	del *.exe
+	del *.obj
+	cd com && del *.obj
+	cd server && $(MAKE) clean
+	cd client && $(MAKE) clean
+
+	

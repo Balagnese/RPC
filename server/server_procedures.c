@@ -4,85 +4,112 @@
 #include <stdbool.h>
 #include "../com/chat_rpc.h"
 
-struct users {
-	unsigned char *userName;
-	int clientId;
+struct users
+{
+	unsigned char userName[STR_LEN];
+	int userId;
 	bool isOnline;
-} userList[USERS_COUNT];
+} users[USERS_COUNT];
 
-struct messages {
+struct messages
+{
 	int messageId;
 	int senderId;
-	unsigned char *text;
-	unsigned char *receiverName;
+	unsigned char text[STR_LEN];
+	unsigned char receiverName[STR_LEN];
 	bool isMessageReceived;
-} messageList[MESSAGES_COUNT];
+} messagesList[MESSAGES_COUNT];
 
-static int userListIndex = -1;
-static int messageListIndex = -1;
+static int nextUserIndex = 0;
+static int nextMessageIndex = 0;
 
-// ToDo - поправить глобально кодировку записи символов
+static int _FindUser(unsigned char *userName)
+{
+	for (int i = 0; i < nextUserIndex; i++)
+	{
+		if (!strcmp(users[i].userName, userName))
+			return users[i].userId;
+	}
+	return -1;
+}
 
 int Login(unsigned char *userName)
 {
-	if (strlen(userName) <= STR_LEN) {
-		userListIndex++;
-		userList[userListIndex].userName = userName;
-		userList[userListIndex].clientId = userListIndex; // FYI: clientId совпадет с индексом
-		userList[userListIndex].isOnline = true;
-		return userList[userListIndex].clientId;
+	int userId = _FindUser(userName);
+
+	if (userId >= 0)
+	{
+		return userId;
 	}
-	return 0;
-	// ToDo - Валидация если больше 50 символов на стороне клиента?
-}
-
-void Logout(int clientId)
-{
-	userList[clientId].isOnline = false;
-}
-
-int GetUsersList(unsigned char *usersList[USERS_COUNT])
-{
-	for (int i = 0; i < USERS_COUNT; i++) {
-		usersList[i] = userList[i].userName;
+	else if (strlen(userName) <= STR_LEN)
+	{
+		strcpy(users[nextUserIndex].userName, userName);
+		users[nextUserIndex].userId = nextUserIndex; // FYI: userId совпадет с индексом
+		users[nextUserIndex].isOnline = true;
+		printf("[DEBUG] User Login [%d] %s\n", users[nextUserIndex].userId, users[nextUserIndex].userName);
+		return users[nextUserIndex++].userId;
 	}
-	return 0; // ToDo - может void раз мы список заполняем?
+	else
+	{
+		return -1;
+	}
 }
 
-int SendMyMessage(int clientId, unsigned char *message, unsigned char *receiver)
+void Logout(int userId)
 {
-	if (strlen(message) <= STR_LEN) {
-		messageListIndex++;
-		messageList[messageListIndex].messageId = messageListIndex; // FYI: messageId совпадет с индексом
-		messageList[messageListIndex].senderId = clientId;
-		messageList[messageListIndex].text = message;
-		messageList[messageListIndex].receiverName = receiver;
-		messageList[messageListIndex].isMessageReceived = false;
-		return messageList[messageListIndex].messageId;
+	users[userId].isOnline = false;
+}
+
+int GetUsersList(unsigned char usersList[USERS_COUNT][STR_LEN])
+{
+	for (int i = 0; i < nextUserIndex; i++)
+	{
+		strcpy(usersList[i], users[i].userName);
+		printf("%d", users[i].userId);
+	}
+	return nextUserIndex;
+}
+
+int SendMyMessage(int userId, unsigned char *message, unsigned char *receiver)
+{
+	if (strlen(message) <= STR_LEN)
+	{
+		messagesList[nextMessageIndex].messageId = nextMessageIndex++; // FYI: messageId совпадет с индексом
+		messagesList[nextMessageIndex].senderId = userId;
+		strcpy(messagesList[nextMessageIndex].text, message);
+		strcpy(messagesList[nextMessageIndex].receiverName, receiver);
+		messagesList[nextMessageIndex].isMessageReceived = false;
+		return messagesList[nextMessageIndex].messageId;
 	}
 	return -1;
-	// ToDo - валидация на длину сообщения и несуществующего получателя на стороне клиента?
 }
 
-int GetMessageStatus(int clientId, int messageId) // похоже clientId тут и не нужен: нам есть разница какой пользователь его должен получить? (помоему важен только messageId)
+int GetMessageStatus(int userId, int messageId)
 {
-	return messageList[messageId].isMessageReceived;
-	// ToDo - статус на клиенте отображается в виде цифры (может текстом надо?)
+	return messagesList[messageId].isMessageReceived;
 }
 
-int ReceiveMyMessage(int clientId, unsigned char *sender, unsigned char *message)
+int ReceiveMyMessage(int userId, unsigned char *sender, unsigned char *message)
 {
-	unsigned char *clientUserName = userList[clientId].userName;
-	for (int i = 0; i < MESSAGES_COUNT; i++) {
-		if (messageList[i].receiverName == clientUserName) {
-			for (int j = 0; j < USERS_COUNT; j++) {
-				if (userList[j].clientId == messageList[i].senderId) {
-					sender = userList[j].userName;
+	int found = 0;
+	unsigned char *clientUserName = users[userId].userName;
+	for (int i = 0; i < MESSAGES_COUNT; i++)
+	{
+		printf("compare %s, %s", messagesList[i].receiverName, clientUserName);
+		if (!strcmp(messagesList[i].receiverName, clientUserName))
+		{
+			for (int j = 0; j < USERS_COUNT; j++)
+			{
+				if (users[j].userId == messagesList[i].senderId)
+				{
+					strcpy(sender, users[j].userName);
 					break;
 				}
 			}
-			message = messageList[i].text;
+			strcpy(message, messagesList[i].text);
+			messagesList[i].isMessageReceived = true;
+			found = 1;
 		}
 	}
-	return 0; // ToDo - может void раз мы переменные, подающиеся на вход, заполняем? 
+	return found;
 }

@@ -11,10 +11,10 @@ interface chat
 	const unsigned short STR_LEN = 50;
 
 	int Login([in, string] unsigned char * userName);
-	void Logout([in] int clientId);
+	void Logout([in] int userId);
 	int GetUsersList([out] char usersList[USERS_COUNT][STR_LEN]);
-	int SendMyMessage([in] int clientId, [in, string] unsigned char * message, [in, string] unsigned char * receiver);
+	int SendMyMessage([in] int userId, [in, string] unsigned char * message, [in, string] unsigned char * receiver);
 
-	int GetMessageStatus([in] int clientId, [in] int messageId);
-	int ReceiveMyMessage([in] int clientId, [out] char sender[STR_LEN], [out] char message[STR_LEN]);
+	int GetMessageStatus([in] int userId, [in] int messageId);
+	int ReceiveMyMessage([in] int userId, [out] char sender[STR_LEN], [out] char message[STR_LEN]);
 }

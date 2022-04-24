@@ -22,9 +22,9 @@ void Usage(char *pszProgramName)
 void main(int argc, char *argv[])
 {
     RPC_STATUS status;
-    unsigned char *pszProtocolSequence = "ncacn_np";
+    unsigned char *pszProtocolSequence = "ncacn_ip_tcp";
     unsigned char *pszSecurity = NULL;
-    unsigned char *pszEndpoint = "\\pipe\\hello";
+    unsigned char *pszEndpoint = "33333";
     unsigned int cMinCalls = 1;
     unsigned int cMaxCalls = 20;
     unsigned int fDontWait = FALSE;

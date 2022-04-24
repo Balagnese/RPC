@@ -1,5 +1,4 @@
 #undef UNICODE
-
 [
 	uuid (a791829b-a91a-43cf-bfd7-feeebe5150ad),
 	version(1.0)
@@ -8,13 +7,14 @@
 interface chat
 {
 	const unsigned short USERS_COUNT = 100;
+	const unsigned short MESSAGES_COUNT = 100;
 	const unsigned short STR_LEN = 50;
 
 	int Login([in, string] unsigned char * userName);
-	void Logout([in] int id);
+	void Logout([in] int clientId);
 	int GetUsersList([out] char usersList[USERS_COUNT][STR_LEN]);
-	int SendMyMessage([in] int id, [in, string] unsigned char * message, [in, string] unsigned char * receiver);
+	int SendMyMessage([in] int clientId, [in, string] unsigned char * message, [in, string] unsigned char * receiver);
 
-	int GetMessageStatus([in] int id, [in] int messageId);
-	int ReceiveMyMessage([in] int id, [out] char sender[STR_LEN], [out] char message[STR_LEN]);
+	int GetMessageStatus([in] int clientId, [in] int messageId);
+	int ReceiveMyMessage([in] int clientId, [out] char sender[STR_LEN], [out] char message[STR_LEN]);
 }

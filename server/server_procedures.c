@@ -70,16 +70,16 @@ int GetUsersList(unsigned char usersList[USERS_COUNT][STR_LEN])
 	return nextUserIndex;
 }
 
-int SendMyMessage(int userId, unsigned char *message, unsigned char *receiver)
+int SendMyMessage(int userId, unsigned char message[STR_LEN], unsigned char receiver[STR_LEN])
 {
 	if (strlen(message) <= STR_LEN)
 	{
-		messagesList[nextMessageIndex].messageId = nextMessageIndex++; // FYI: messageId совпадет с индексом
+		messagesList[nextMessageIndex].messageId = nextMessageIndex; // FYI: messageId совпадет с индексом
 		messagesList[nextMessageIndex].senderId = userId;
 		strcpy(messagesList[nextMessageIndex].text, message);
 		strcpy(messagesList[nextMessageIndex].receiverName, receiver);
 		messagesList[nextMessageIndex].isMessageReceived = false;
-		return messagesList[nextMessageIndex].messageId;
+		return messagesList[nextMessageIndex++].messageId;
 	}
 	return -1;
 }
@@ -89,27 +89,26 @@ int GetMessageStatus(int userId, int messageId)
 	return messagesList[messageId].isMessageReceived;
 }
 
-int ReceiveMyMessage(int userId, unsigned char *sender, unsigned char *message)
+int ReceiveMyMessage(int userId, unsigned char sender[STR_LEN], unsigned char message[STR_LEN])
 {
-	int found = 0;
 	unsigned char *clientUserName = users[userId].userName;
-	for (int i = 0; i < MESSAGES_COUNT; i++)
+	for (int i = 0; i < nextMessageIndex; i++)
 	{
-		printf("compare %s, %s", messagesList[i].receiverName, clientUserName);
-		if (!strcmp(messagesList[i].receiverName, clientUserName))
+		printf("compare %s, %s, %d\n", messagesList[i].receiverName, clientUserName, i);
+		if (strcmp(messagesList[i].receiverName, clientUserName))
 		{
-			for (int j = 0; j < USERS_COUNT; j++)
+			printf("after strcmp %s, %s", messagesList[i].receiverName, clientUserName);
+			for (int j = 0; j < nextUserIndex; j++)
 			{
 				if (users[j].userId == messagesList[i].senderId)
 				{
 					strcpy(sender, users[j].userName);
-					break;
+					strcpy(message, messagesList[i].text);
+					messagesList[i].isMessageReceived = true;
+					return 1;
 				}
 			}
-			strcpy(message, messagesList[i].text);
-			messagesList[i].isMessageReceived = true;
-			found = 1;
 		}
 	}
-	return found;
+	return 0;
 }

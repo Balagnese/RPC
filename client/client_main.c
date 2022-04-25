@@ -131,16 +131,19 @@ void main(int argc, char **argv)
             Users_();
             break;
         case 's':
-            // if (strcmp(mode, RECEIVE_MODE)) {
-            //   printf("You need to use a different app mode. Restart your application with '-m 2'.");
-            // } else if (strcmp(mode, SEND_MODE)) {
-            //   printf("Not implemented. Live with it.");
-            // }
-            messageId = Send_(userId);
-            printf("Message sent, ID: %d\n\n", messageId);
+            if (strcmp(mode, RECEIVE_MODE)) {
+                printf("You need to use a different app mode. Restart your application with '-m 2'.\n\n");
+            } else if (strcmp(mode, SEND_MODE)) {
+                messageId = Send_(userId);
+                printf("Message sent, ID: %d\n\n", messageId);
+            }
             break;
         case 'r':
-            Receive_(userId);
+            if (strcmp(mode, RECEIVE_MODE)) {
+                Receive_(userId);
+            } else if (strcmp(mode, SEND_MODE)) {
+                printf("You need to use a different app mode. Restart your application with '-m 1'.\n\n");
+            }
             break;
         case 'c':
             printf("Enter message ID: ");

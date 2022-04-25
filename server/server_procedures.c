@@ -100,7 +100,7 @@ int ReceiveMyMessage(int userId, unsigned char sender[STR_LEN], unsigned char me
 			printf("after strcmp %s, %s", messagesList[i].receiverName, clientUserName);
 			for (int j = 0; j < nextUserIndex; j++)
 			{
-				if (users[j].userId == messagesList[i].senderId)
+				if (users[j].userId == messagesList[i].senderId && !messagesList[i].isMessageReceived)
 				{
 					strcpy(sender, users[j].userName);
 					strcpy(message, messagesList[i].text);
